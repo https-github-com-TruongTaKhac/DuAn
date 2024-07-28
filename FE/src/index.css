@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.backgound-one {
+    background: linear-gradient(155deg, #f6f1f1, #f6f1f1 90%, green 120%);
+}
+.backgound-two {
+    background: linear-gradient(155deg, #ffffff, #ffffff 90%, green 120%);
+}

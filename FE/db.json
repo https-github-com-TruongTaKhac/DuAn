@@ -1,0 +1,50 @@
+{
+  "products": [
+    {
+      "name": "Growbox",
+      "price": "965",
+      "category": "Hoa",
+      "image": "/src/assets/image/thung_rac.png",
+      "id": 1
+    },
+    {
+      "id": 2,
+      "name": "Töpfe",
+      "image": "/src/assets/image/chau_cay.png",
+      "price": 6130,
+      "category": "Hoa"
+    },
+    {
+      "id": 3,
+      "name": "Lichthänger-Set",
+      "image": "/src/assets/image/moc.png",
+      "price": 753,
+      "category": "Uncategorized"
+    },
+    {
+      "name": "Licht",
+      "image": "/src/assets/image/tip.png",
+      "price": 1155,
+      "category": "KenJi",
+      "id": 4
+    }
+  ],
+  "categories": [
+    {
+      "id": 1,
+      "name": "Uncategorized"
+    },
+    {
+      "name": "Hoa",
+      "id": 2
+    },
+    {
+      "name": "BlueGem",
+      "id": 3
+    },
+    {
+      "name": "KenJi",
+      "id": 4
+    }
+  ]
+}
