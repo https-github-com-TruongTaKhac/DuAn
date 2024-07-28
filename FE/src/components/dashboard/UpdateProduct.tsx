@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { Form, Input, Button, Select, message, Card, Typography } from 'antd';
-import { useNavigate, useParams } from 'react-router-dom';
-import { GetProductByID, UpdateProduct } from '../../services/product';
-import { GetAllCategory } from '../../services/category';
-import { ProductType } from '../../interfaces/product';
-import { CategoryType } from '../../interfaces/category';
+import React, { useState, useEffect } from "react";
+import { Form, Input, Button, Select, message, Card, Typography } from "antd";
+import { useNavigate, useParams } from "react-router-dom";
+import { GetProductByID, UpdateProduct } from "../../services/product";
+import { GetAllCategory } from "../../services/category";
+import { ProductType } from "../../interfaces/product";
+import { CategoryType } from "../../interfaces/category";
 
 const { Option } = Select;
 const { Title } = Typography;
@@ -25,7 +25,7 @@ const UpdateProductComponent = () => {
       const data = await GetAllCategory();
       setCategories(data);
     } catch (error) {
-      message.error('Failed to fetch categories');
+      message.error("Failed to fetch categories");
     }
   };
 
@@ -37,19 +37,19 @@ const UpdateProductComponent = () => {
         categoryId: data.categoryId._id,
       });
     } catch (error) {
-      message.error('Failed to fetch product');
+      message.error("Failed to fetch product");
     }
   };
 
   const onFinish = async (values: ProductType) => {
     try {
       if (id) {
-        await UpdateProduct(id,values);
-        message.success('Product updated successfully');
-        navigate('/dashboard/products');
+        await UpdateProduct(id, values);
+        message.success("Product updated successfully");
+        navigate("/dashboard/products");
       }
     } catch (error) {
-      message.error('Failed to update product');
+      message.error("Failed to update product");
     }
   };
 
@@ -57,16 +57,64 @@ const UpdateProductComponent = () => {
     <Card>
       <Title level={2}>Update Product</Title>
       <Form form={form} layout="vertical" onFinish={onFinish}>
-        <Form.Item name="name" label="Name" rules={[{ required: true, message: 'Please input the product name!' }]}>
+        <Form.Item
+          name="name"
+          label="Name"
+          rules={[
+            { required: true, message: "Please input the product name!" },
+            { min: 3, message: "Name must be at least 3 characters long." },
+          ]}
+        >
           <Input />
         </Form.Item>
-        <Form.Item name="image" label="Image" rules={[{ required: true, message: 'Please input the product image!' }]}>
+        <Form.Item
+          name="image"
+          label="Image"
+          rules={[
+            { required: true, message: "Please input the product image!" },
+          ]}
+        >
           <Input />
         </Form.Item>
-        <Form.Item name="price" label="Price" rules={[{ required: true, message: 'Please input the product price!' }]}>
-          <Input type="number" />
+        <Form.Item
+          name="price"
+          label="Price"
+          rules={[
+            {
+              validator: (_, value) => {
+                // Kiểm tra nếu giá trị nhập vào là trống
+                if (value === undefined || value === null || value === "") {
+                  return Promise.reject(
+                    new Error("Please input the product price!")
+                  );
+                }
+
+                // Kiểm tra nếu giá trị nhập vào là số
+                if (isNaN(value)) {
+                  return Promise.reject(new Error("Price must be a number."));
+                }
+
+                // Kiểm tra nếu giá trị nhỏ hơn 0
+                if (Number(value) < 0) {
+                  return Promise.reject(
+                    new Error("Price must be a non-negative number.")
+                  );
+                }
+
+                // Nếu tất cả các kiểm tra đều qua, trả về thành công
+                return Promise.resolve();
+              },
+            },
+          ]}
+        >
+          <Input type="text" step="0.01" />
         </Form.Item>
-        <Form.Item name="categoryId" label="Category" rules={[{ required: true, message: 'Please select a category!' }]}>
+
+        <Form.Item
+          name="categoryId"
+          label="Category"
+          rules={[{ required: true, message: "Please select a category!" }]}
+        >
           <Select>
             {categories.map((category: CategoryType) => (
               <Option key={category._id} value={category._id}>

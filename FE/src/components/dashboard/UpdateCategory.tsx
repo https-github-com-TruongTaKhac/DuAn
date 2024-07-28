@@ -36,18 +36,25 @@ const UpdateCategoryComponent = () => {
 
   return (
     <Card>
-      <Title level={2}>Update Category</Title>
-      <Form form={form} layout="vertical" onFinish={onFinish}>
-        <Form.Item name="name" label="Name" rules={[{ required: true, message: 'Please input the category name!' }]}>
-          <Input />
-        </Form.Item>
-        <Form.Item>
-          <Button type="primary" htmlType="submit">
-            Update Category
-          </Button>
-        </Form.Item>
-      </Form>
-    </Card>
+    <Title level={2}>Update Category</Title>
+    <Form form={form} layout="vertical" onFinish={onFinish}>
+      <Form.Item
+        name="name"
+        label="Name"
+        rules={[
+          { required: true, message: 'Please input the category name!' },
+          { min: 3, message: "Name must be at least 3 characters long." },
+        ]}
+      >
+        <Input />
+      </Form.Item>
+      <Form.Item>
+        <Button type="primary" htmlType="submit">
+          Update Category
+        </Button>
+      </Form.Item>
+    </Form>
+  </Card>
   );
 };
 
