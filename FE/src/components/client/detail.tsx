@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { ProductType } from "../../interfaces/product";
 import { GetProductByID } from "../../services/product";
-
+import { Image } from "antd";
 const Detail = () => {
   const [product, setProduct] = useState<ProductType | undefined>(undefined);
   const param = useParams();
@@ -30,7 +30,7 @@ const Detail = () => {
         <div className="px-[200px] w-full">
           <div className="flex mt-[100px] gap-6">
             <div className="flex-1 space-y-12 justify-center items-center flex-col flex">
-              <img src={product.image} alt="" width={355} />
+              <Image src={product.image} alt={product.name} width={355} />
               <div className="flex justify-center items-center gap-6">
                 <img src={product.image} alt="" width={106} />
                 <img src={product.image} alt="" width={106} />

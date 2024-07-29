@@ -9,9 +9,9 @@ import styled from "styled-components";
 const Client = () => {
   return (
     <>
-        <Header />
-        <Outlet />
-        <Footer />
+      <Header />
+      <Outlet />
+      <Footer />
     </>
   );
 };

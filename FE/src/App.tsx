@@ -14,6 +14,7 @@ import AddCategory from "./components/dashboard/AddCategory";
 import UpdateCategory from "./components/dashboard/UpdateCategory";
 import { ProductType } from "./interfaces/product";
 import ProductList from "./components/client/productsBycategory";
+import SearchResults from "./components/client/searchResult";
 
 function App() {
   const [products, setProducts] = useState<ProductType[]>([]);
@@ -42,7 +43,8 @@ function App() {
         { path: "/", element: <Home products={products} /> },
         { path: "products", element: <Products products={products} /> },
         { path: "products/:id", element: <Detail /> },
-        { path: "products/category/:categoryId", element: <ProductList/> },
+        { path: "products/category/:categoryId", element: <ProductList /> },
+        { path: "search", element: <SearchResults products={products} /> },
       ],
     },
     {

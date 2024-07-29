@@ -1,35 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { GetProductsByCategory } from "../../services/product";
-import ProductItem from "../client/productItem";
 import { ProductType } from "../../interfaces/product";
+import ProductItem from "../client/productItem";
+import { CategoryType } from "../../interfaces/category";
+import { GetAllCategory } from "../../services/category";
+import { useSearchParams } from "react-router-dom";
 
-const ProductsByCategory = () => {
-  const { categoryId } = useParams<{ categoryId: string }>(); // Lấy categoryId từ URL
-  const [products, setProducts] = useState<ProductType[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        setLoading(true);
-        if (categoryId) {
-          const data = await GetProductsByCategory(categoryId);
-          setProducts(data);
-        } else {
-          setProducts([]); // Nếu không có categoryId, đặt sản phẩm thành rỗng
-        }
-      } catch (error) {
-        setError("Failed to fetch products");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProducts();
-  }, [categoryId]); // Fetch products khi categoryId thay đổi
-
+type Props = { products: ProductType[] };
+const SearchResults = ({ products }: Props) => {
+  const [searchParams] = useSearchParams();
+  const searchTerm = searchParams.get("q") || "";
+  const filteredProducts = products.filter((product) =>
+    product.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
   return (
     <>
       <div className=" backgound-two">
@@ -99,23 +81,17 @@ const ProductsByCategory = () => {
             <div className="col-span-4">
               {/* Display products */}
               <div className="p-4 rounded-md">
-                {loading ? (
-                  <p>Loading...</p>
-                ) : error ? (
-                  <p>{error}</p>
-                ) : (
-                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-6">
-                    {products.length > 0 ? (
-                      products.map((product) => (
-                        <ProductItem key={product._id} product={product} />
-                      ))
-                    ) : (
-                      <p className="text-xl font-bold text-[#505F4E]">
-                        No Products found !
-                      </p>
-                    )}
-                  </div>
-                )}
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-6">
+                  {filteredProducts.length > 0 ? (
+                    filteredProducts.map((product) => (
+                      <ProductItem key={product._id} product={product} />
+                    ))
+                  ) : (
+                    <p className="text-xl font-bold text-[#505F4E]">
+                      Không tìm thấy sản phẩm !
+                    </p>
+                  )}
+                </div>
               </div>
             </div>
           </div>
@@ -154,4 +130,4 @@ const ProductsByCategory = () => {
   );
 };
 
-export default ProductsByCategory;
+export default SearchResults;

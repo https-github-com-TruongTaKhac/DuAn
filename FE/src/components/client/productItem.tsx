@@ -1,4 +1,3 @@
-import React from "react";
 import { ProductType } from "../../interfaces/product";
 import { Link } from "react-router-dom";
 
@@ -12,10 +11,9 @@ const ProductItem = ({ product }: ProductProps) => {
       key={product._id}
       className="relative flex flex-col justify-between p-4 rounded-md bg-white group"
     >
-        <div className="absolute top-2 left-3 text-[11px] text-white bg-[#1E2832] w-[47px] h-[22px] flex justify-center items-center rounded-md">
-          SALE
-        </div>
-
+      <div className="absolute top-2 left-3 text-[11px] text-white bg-[#1E2832] w-[47px] h-[22px] flex justify-center items-center rounded-md">
+        SALE
+      </div>
 
       {/* Product Image */}
       <Link to={`/products/${product._id}`} className="z-10">
@@ -31,9 +29,7 @@ const ProductItem = ({ product }: ProductProps) => {
       {/* Product Details */}
       <div className="flex flex-col">
         <Link to={`/products/${product._id}`} className="z-10">
-          <div className="mb-2 font-bold text-gray-900">
-            {product.name}
-          </div>
+          <div className="mb-2 font-bold text-gray-900">{product.name}</div>
         </Link>
         <div className="flex justify-between text-gray-700">
           <div>{product.categoryId.name}</div>

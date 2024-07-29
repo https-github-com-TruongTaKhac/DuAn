@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { GetAllCategory } from "../../services/category";
 import { CategoryType } from "../../interfaces/category";
 
-type Props = {};
-
-const Header = (props: Props) => {
+const Header = () => {
   const [categories, setCategories] = useState<CategoryType[]>([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -20,27 +20,42 @@ const Header = (props: Props) => {
     fetchCategories();
   }, []);
 
+  const handleSearchChange = (event: any) => {
+    const term = event.target.value;
+    setSearchTerm(term);
+    navigate(`/search?q=${term}`);
+  };
+
+  const handleSearchClick = () => {
+    if (searchTerm) {
+      navigate(`/search?q=${searchTerm}`);
+    }
+  };
+
   return (
     <div className="bg-gradient-to-r from-[#4E7C32] to-[#abaf98] py-4 px-6">
       <div className="flex justify-center items-center mb-4 flex-wrap">
         <div className="flex items-center space-x-4 relative">
-          <div>
+          <div className="relative">
             <input
               type="text"
               placeholder="Suchen Sie nach Produkten, Marken und mehr"
+              value={searchTerm}
+              onChange={handleSearchChange}
               className="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-400 w-[500px]"
             />
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
-              stroke-width="2"
+              strokeWidth="2"
               stroke="currentColor"
-              className="w-4 h-4 absolute left-[470px] top-3"
+              className="w-5 h-5 absolute left-[470px] top-[10px] cursor-pointer "
+              onClick={handleSearchClick}
             >
               <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeLinecap="round"
+                strokeLinejoin="round"
                 d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
               />
             </svg>
@@ -82,6 +97,11 @@ const Header = (props: Props) => {
       <div className="border-t border-white w-full max-w-screen-xl mx-auto mb-4"></div>
 
       <div className="flex justify-center items-center space-x-4">
+        <div className="flex items-center space-x-6">
+          <Link className="text-gray-50 hover:text-white px-4" to="products">
+            Shop
+          </Link>
+        </div>
         <div className="flex items-center space-x-6">
           {categories.map((category) => (
             <Link
