@@ -6,7 +6,7 @@ import { GetProductByID } from "../../services/product";
 const Detail = () => {
   const [product, setProduct] = useState<ProductType | undefined>(undefined);
   const param = useParams();
-console.log(param)
+  console.log(param);
   useEffect(() => {
     const fetchProduct = async () => {
       try {
@@ -71,7 +71,9 @@ console.log(param)
                   </div>
                   <div className="w-[273px] h-[55px] bg-[#4E7C32] flex justify-center items-center gap-4 rounded-lg hover:opacity-80 cursor-pointer">
                     <img src="/src/assets/image/icon-cart 2.png" alt="" />
-                    <p className="text-[16px] font-bold text-white">Add to cart</p>
+                    <p className="text-[16px] font-bold text-white">
+                      Add to cart
+                    </p>
                   </div>
                 </div>
               </div>
@@ -175,7 +177,7 @@ console.log(param)
           </div>
 
           <div className="w-full grid grid-cols-2 gap-4 mt-10">
-            <div>
+            <div className="flex items-end">
               <div className="mt-[30px]">
                 <div className="flex items-center space-x-2">
                   <p className="text-[#4E7C32] text-[16px]">Aman Gupta</p>
