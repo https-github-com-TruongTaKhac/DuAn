@@ -2,11 +2,14 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { GetAllCategory } from "../../services/category";
 import { CategoryType } from "../../interfaces/category";
+import { message } from "antd";
+import { useForm } from "react-hook-form";
 
 const Header = () => {
   const [categories, setCategories] = useState<CategoryType[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
+  const { handleSubmit } = useForm();
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -30,20 +33,45 @@ const Header = () => {
     if (searchTerm) {
       navigate(`/search?q=${searchTerm}`);
     }
+    if (searchTerm.length == 0) {
+      message.error("Vui lòng nhập dữ liệu vào ô tìm kiếm");
+    }
   };
-
+  const onSubmit = () => {
+    handleSearchClick();
+  };
   return (
     <div className="bg-gradient-to-r from-[#4E7C32] to-[#abaf98] py-4 px-6">
       <div className="flex justify-center items-center mb-4 flex-wrap">
         <div className="flex items-center space-x-4 relative">
+          <Link to={""}>
+            <div className="absolute left-[-128px] top-[15px] opacity-75 hover:opacity-100 ">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                className="size-8 text-white"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"
+                />
+              </svg>
+            </div>
+          </Link>
           <div className="relative">
-            <input
-              type="text"
-              placeholder="Suchen Sie nach Produkten, Marken und mehr"
-              value={searchTerm}
-              onChange={handleSearchChange}
-              className="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-400 w-[500px]"
-            />
+            <form action="" onSubmit={handleSubmit(onSubmit)}>
+              <input
+                type="text"
+                placeholder="Suchen Sie nach Produkten, Marken und mehr"
+                value={searchTerm}
+                onChange={handleSearchChange}
+                className="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-400 w-[500px]"
+              />
+            </form>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"

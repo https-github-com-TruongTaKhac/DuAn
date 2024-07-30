@@ -1,8 +1,5 @@
-import React, { useEffect, useState } from "react";
 import { ProductType } from "../../interfaces/product";
 import ProductItem from "../client/productItem";
-import { CategoryType } from "../../interfaces/category";
-import { GetAllCategory } from "../../services/category";
 import { useSearchParams } from "react-router-dom";
 
 type Props = { products: ProductType[] };
@@ -15,10 +12,10 @@ const SearchResults = ({ products }: Props) => {
   return (
     <>
       <div className=" backgound-two">
-        <div className="relative bg-gradient-to-r from-[#B5DCB0] to-[#FFFFFF] w-full h-[150px] flex items-center font-bold text-[30px] pl-[150px] text-[#505F4E]">
-          Töpfe & Behälter
+        <div className="relative bg-gradient-to-r from-[#B5DCB0] to-[#FFFFFF] w-full h-[150px] flex items-center font-bold text-[30px] pl-[150px] text-[#505F4E] gap-2">
+          <span>Search Results</span>
         </div>
-
+        {/* 
         <div className="flex items-center justify-center p-10">
           <div className="flex items-center bg-[#D2E8CD] w-[200px] h-[65px] pl-4 pt-2">
             <img
@@ -74,7 +71,7 @@ const SearchResults = ({ products }: Props) => {
               className="border-2 w-[200px] h-[40px] rounded-lg pl-5 ml-5 bg-transparent"
             />
           </div>
-        </div>
+        </div> */}
 
         <div className="w-[1300px] mx-auto">
           <div className="grid grid-cols-4 gap-4">

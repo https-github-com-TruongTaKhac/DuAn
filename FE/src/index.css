@@ -8,3 +8,10 @@
 .backgound-two {
   background: linear-gradient(155deg, #ffffff, #ffffff 85%, green 120%);
 }
+/* index.css hoặc style.css */
+.ant-message {
+  font-size: 16px; /* Thay đổi kích thước font của thông báo */
+}
+.ant-message-notice {
+  padding: 0px; /* Thay đổi padding để thay đổi kích thước thông báo */
+}

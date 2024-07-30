@@ -1,16 +1,49 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { ProductType } from "../../interfaces/product";
 import ProductItem from "../client/productItem";
+import { HashLink as Link } from "react-router-hash-link";
+import { GetAllCategory } from "../../services/category";
+import { GetProductsByCategory } from "../../services/product";
 
 type Props = {
   products: ProductType[];
 };
-
+interface CategoryWithProducts {
+  id: string | undefined;
+  name: string;
+  productCount: number;
+  image: string;
+}
 const Home = ({ products }: Props) => {
   if (!products) {
     return <div>Loading...</div>;
   }
+  const [categoriesWithProductCounts, setCategoriesWithProductCounts] =
+    useState<CategoryWithProducts[]>([]);
 
+  useEffect(() => {
+    const fetchCategoriesAndProducts = async () => {
+      try {
+        const categories = await GetAllCategory();
+        const data = await Promise.all(
+          categories.map(async (category, index) => {
+            const products = await GetProductsByCategory(category._id);
+            return {
+              id: category._id,
+              name: category.name,
+              productCount: products.length,
+              image: `/src/assets/image/b${index + 1}.png`,
+            }; // Up sờ load lại tên ảnh là b1.png, b2.png, ...
+          })
+        );
+        setCategoriesWithProductCounts(data);
+      } catch (error) {
+        console.error("Error fetching categories or products:", error);
+      }
+    };
+
+    fetchCategoriesAndProducts();
+  }, []);
   return (
     <>
       <div className="backgound-one">
@@ -127,102 +160,32 @@ const Home = ({ products }: Props) => {
         <hr />
 
         <div className="grid grid-cols-4 gap-4 w-[1400px] mx-auto mt-10">
-          <div className="h-auto relative overflow-hidden group rounded-sm cursor-pointer">
-            <img
-              src="/src/assets/image/b1.png"
-              alt="Image 1"
-              className="w-full h-auto object-cover transition-transform transform group-hover:scale-110 duration-500"
-            />
-            <div className="absolute right-6 top-6">
-              <p className=" text-white font-bold text-[18px]">Beleuchtung</p>
-              <p className=" text-white text-[16px]">20 Items</p>
+          {categoriesWithProductCounts.map((category, index) => (
+            <div className="h-auto relative overflow-hidden group rounded-sm cursor-pointer">
+              <Link
+                key={index}
+                smooth
+                to={`/products/category/${category.id}#top`}
+                className=""
+              >
+                <div>
+                  <img
+                    src={category.image}
+                    alt={`Image ${index + 1}`}
+                    className="w-full h-auto object-cover transition-transform transform group-hover:scale-110 duration-500"
+                  />
+                  <div className="absolute right-6 top-6">
+                    <p className=" text-white font-bold text-[18px]">
+                      {category.name}
+                    </p>
+                    <p className=" text-white text-[16px]">
+                      {category.productCount} Items
+                    </p>
+                  </div>
+                </div>
+              </Link>
             </div>
-          </div>
-          <div className="h-auto relative overflow-hidden group rounded-sm cursor-pointer">
-            <img
-              src="/src/assets/image/b2.png"
-              alt="Image 2"
-              className="w-full h-auto object-cover transition-transform transform group-hover:scale-110 duration-500"
-            />
-            <div className="absolute right-6 top-6">
-              <p className=" text-white font-bold text-[18px]">Dünger</p>
-              <p className=" text-white text-[16px]">20 Items</p>
-            </div>
-          </div>
-          <div className="h-auto relative overflow-hidden group rounded-sm cursor-pointer">
-            <img
-              src="/src/assets/image/b3.png"
-              alt="Image 3"
-              className="w-full h-auto object-cover transition-transform transform group-hover:scale-110 duration-500"
-            />
-            <div className="absolute right-6 top-6">
-              <p className=" text-white font-bold text-[18px]">
-                Erde & Substrate
-              </p>
-              <p className=" text-white text-[16px]">20 Items</p>
-            </div>
-          </div>
-          <div className="h-auto relative overflow-hidden group rounded-sm cursor-pointer">
-            <img
-              src="/src/assets/image/b4.png"
-              alt="Image 4"
-              className="w-full h-auto object-cover transition-transform transform group-hover:scale-110 duration-500"
-            />
-            <div className="absolute right-6 top-6">
-              <p className=" text-white font-bold text-[18px]">Bewässerung</p>
-              <p className=" text-white text-[16px]">20 Items</p>
-            </div>
-          </div>
-          <div className="h-auto relative overflow-hidden group rounded-sm cursor-pointer">
-            <img
-              src="/src/assets/image/b7.png"
-              alt="Image 5"
-              className="w-full h-auto object-cover transition-transform transform group-hover:scale-110 duration-500"
-            />
-            <div className="absolute right-6 top-6">
-              <p className=" text-white font-bold text-[18px]">
-                Töpfe & Behälter
-              </p>
-              <p className=" text-white text-[16px]">20 Items</p>
-            </div>
-          </div>
-          <div className="h-auto relative overflow-hidden group rounded-sm cursor-pointer">
-            <img
-              src="/src/assets/image/b5.png"
-              alt="Image 6"
-              className="w-full h-auto object-cover transition-transform transform group-hover:scale-110 duration-500"
-            />
-            <div className="absolute right-6 top-6">
-              <p className=" text-white font-bold text-[18px]">Growbox</p>
-              <p className=" text-white text-[16px]">20 Items</p>
-            </div>
-          </div>
-          <div className="h-auto relative overflow-hidden group rounded-sm cursor-pointer">
-            <img
-              src="/src/assets/image/b8.png"
-              alt="Image 7"
-              className="w-full h-auto object-cover transition-transform transform group-hover:scale-110 duration-500"
-            />
-            <div className="absolute right-6 top-6">
-              <p className=" text-white font-bold text-[18px]">
-                Pflanzen & Gärtnern
-              </p>
-              <p className=" text-white text-[16px]">20 Items</p>
-            </div>
-          </div>
-          <div className="h-auto relative overflow-hidden group rounded-sm cursor-pointer">
-            <img
-              src="/src/assets/image/b1.png"
-              alt="Image 8"
-              className="w-full h-auto object-cover transition-transform transform group-hover:scale-110 duration-500"
-            />
-            <div className="absolute right-6 top-6">
-              <p className=" text-white font-bold text-[18px]">
-                Lüftung & Klimaanlage
-              </p>
-              <p className=" text-white text-[16px]">20 Items</p>
-            </div>
-          </div>
+          ))}
         </div>
 
         <div className="flex mt-10 pl-[100px] pb-10">

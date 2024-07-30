@@ -3,10 +3,13 @@ import { useParams } from "react-router-dom";
 import { GetProductsByCategory } from "../../services/product";
 import ProductItem from "../client/productItem";
 import { ProductType } from "../../interfaces/product";
+import { GetCategoryByID } from "../../services/category";
+import { CategoryType } from "../../interfaces/category";
 
 const ProductsByCategory = () => {
   const { categoryId } = useParams<{ categoryId: string }>(); // Lấy categoryId từ URL
   const [products, setProducts] = useState<ProductType[]>([]);
+  const [category, setCategory] = useState<CategoryType>();
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -16,7 +19,10 @@ const ProductsByCategory = () => {
         setLoading(true);
         if (categoryId) {
           const data = await GetProductsByCategory(categoryId);
+          const response = await GetCategoryByID(categoryId);
+          console.log(category);
           setProducts(data);
+          setCategory(response.category);
         } else {
           setProducts([]); // Nếu không có categoryId, đặt sản phẩm thành rỗng
         }
@@ -29,12 +35,11 @@ const ProductsByCategory = () => {
 
     fetchProducts();
   }, [categoryId]); // Fetch products khi categoryId thay đổi
-
   return (
     <>
       <div className=" backgound-two">
         <div className="relative bg-gradient-to-r from-[#B5DCB0] to-[#FFFFFF] w-full h-[150px] flex items-center font-bold text-[30px] pl-[150px] text-[#505F4E]">
-          Töpfe & Behälter
+          {category?.name}
         </div>
 
         <div className="flex items-center justify-center p-10">

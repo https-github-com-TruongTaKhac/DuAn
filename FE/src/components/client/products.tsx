@@ -37,7 +37,7 @@ const Products = ({ products }: Props) => {
     <>
       <div className=" backgound-two">
         <div className="relative bg-gradient-to-r from-[#B5DCB0] to-[#FFFFFF] w-full h-[150px] flex items-center font-bold text-[30px] pl-[150px] text-[#505F4E]">
-          Töpfe & Behälter
+          ProductList
         </div>
 
         <div className="flex items-center justify-center p-10">
