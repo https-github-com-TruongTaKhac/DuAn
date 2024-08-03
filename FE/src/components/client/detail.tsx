@@ -38,14 +38,14 @@ const Detail = () => {
               </div>
             </div>
             <div className="flex-1 flex flex-col space-y-4">
-              <p className="text-[#4E7C32] font-bold">PLANT</p>
+              <p className="text-[#4E7C32] font-bold">
+                {product.categoryId.name}
+              </p>
               <span className="text-[#1D2025] font-bold text-[44px]">
                 {product.name}
               </span>
               <span className="text-[#68707D] text-[16px]">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the
+                {product.description}
               </span>
               <div className="space-y-2">
                 <div className="flex items-center space-x-4">
@@ -82,23 +82,11 @@ const Detail = () => {
           <div className="">
             <div>
               <p className="text-[#4E7C32] text-[30px] mt-10">Description</p>
-              <span className="text-[#665345]">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the <br />
-                industry's standard dummy text ever since the 1500s, when an
-                unknown printer took a galley of <br />
-                type and scrambled it.
-              </span>
+              <span className="text-[#665345]">{product.description}</span>
             </div>
             <div>
               <p className="text-[#4E7C32] text-[30px] mt-10">About</p>
-              <span className="text-[#665345]">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the <br />
-                industry's standard dummy text ever since the 1500s, when an
-                unknown printer took a galley of <br />
-                type and scrambled it.
-              </span>
+              <span className="text-[#665345]">{product.about}</span>
             </div>
           </div>
 

@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Table, Button, message, Popconfirm, Card, Typography } from "antd";
+import {
+  Table,
+  Button,
+  message,
+  Popconfirm,
+  Card,
+  Typography,
+  Image,
+} from "antd";
 import { Link } from "react-router-dom";
 import { GetAllCategory, DeleteCategory } from "../../services/category";
 import { EditOutlined, DeleteOutlined, PlusOutlined } from "@ant-design/icons";
@@ -39,6 +47,12 @@ const ListCategory = () => {
 
   const columns = [
     { title: "Name", dataIndex: "name", key: "name" },
+    {
+      title: "Image",
+      dataIndex: "image",
+      key: "image",
+      render: (image: string) => <Image width={50} src={image} alt="Product" />,
+    },
     {
       title: "Actions",
       key: "actions",

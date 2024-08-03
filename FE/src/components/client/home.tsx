@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { ProductType } from "../../interfaces/product";
 import ProductItem from "../client/productItem";
 import { HashLink as Link } from "react-router-hash-link";
@@ -26,14 +26,14 @@ const Home = ({ products }: Props) => {
       try {
         const categories = await GetAllCategory();
         const data = await Promise.all(
-          categories.map(async (category, index) => {
+          categories.map(async (category) => {
             const products = await GetProductsByCategory(category._id);
             return {
               id: category._id,
               name: category.name,
               productCount: products.length,
-              image: `/src/assets/image/b${index + 1}.png`,
-            }; // Up sờ load lại tên ảnh là b1.png, b2.png, ...
+              image: category.image,
+            };
           })
         );
         setCategoriesWithProductCounts(data);

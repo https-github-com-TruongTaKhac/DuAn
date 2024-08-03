@@ -65,7 +65,7 @@ const UpdateProductComponent = () => {
             { min: 3, message: "Name must be at least 3 characters long." },
           ]}
         >
-          <Input />
+          <Input autoComplete="on" />
         </Form.Item>
         <Form.Item
           name="image"
@@ -74,7 +74,25 @@ const UpdateProductComponent = () => {
             { required: true, message: "Please input the product image!" },
           ]}
         >
-          <Input />
+          <Input autoComplete="on" />
+        </Form.Item>
+        <Form.Item
+          name="description"
+          label="Description"
+          rules={[
+            { required: true, message: "Please input the product description!" },
+          ]}
+        >
+          <Input autoComplete="on" />
+        </Form.Item>
+        <Form.Item
+          name="about"
+          label="About"
+          rules={[
+            { required: true, message: "Please input the product about!" },
+          ]}
+        >
+          <Input autoComplete="on" />
         </Form.Item>
         <Form.Item
           name="price"
