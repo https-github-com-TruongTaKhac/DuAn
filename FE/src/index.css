@@ -15,3 +15,13 @@
 .ant-message-notice {
   padding: 0px; /* Thay đổi padding để thay đổi kích thước thông báo */
 }
+.menu-item:hover ul{
+  display: block;
+}
+.menu-item ul li:hover {
+  background-color:#505F4E;
+  color: white;
+}
+.menu-item ul li:hover .dotted-menu{
+  background-color: white;
+}

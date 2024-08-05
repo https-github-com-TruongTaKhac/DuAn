@@ -15,6 +15,8 @@ import UpdateCategory from "./components/dashboard/UpdateCategory";
 import { ProductType } from "./interfaces/product";
 import ProductList from "./components/client/productsBycategory";
 import SearchResults from "./components/client/searchResult";
+import Register from "./components/client/register";
+import Login from "./components/client/login";
 
 function App() {
   const [products, setProducts] = useState<ProductType[]>([]);
@@ -41,6 +43,8 @@ function App() {
       element: <Client />,
       children: [
         { path: "/", element: <Home products={products} /> },
+        { path: "register", element: <Register /> },
+        { path: "login", element: <Login /> },
         { path: "products", element: <Products products={products} /> },
         { path: "products/:id", element: <Detail /> },
         { path: "products/category/:categoryId", element: <ProductList /> },
