@@ -130,6 +130,42 @@ const Header = () => {
             Shop
           </Link>
         </div>
+        <div className="relative menu-item">
+          <a
+            href="#"
+            className="text-gray-50 hover:text-white px-4 flex justify-center items-end gap-1 "
+          >
+            Growbox
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              className="mb-[1px] size-4"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="m19.5 8.25-7.5 7.5-7.5-7.5"
+              />
+            </svg>
+          </a>
+          <ul className="w-[100px] bg-white text-[#665345] absolute left-4 top-6 z-10 hidden">
+            <li className="flex gap-2 justify-start items-center px-2 cursor-pointer">
+              <div className="w-1 h-1 rounded-full bg-[#665345] dotted-menu"></div>
+              HTML
+            </li>
+            <li className="flex gap-2 justify-start items-center px-2 cursor-pointer">
+              <div className="w-1 h-1 rounded-full bg-[#665345] dotted-menu"></div>
+              React
+            </li>
+            <li className="flex gap-2 justify-start items-center px-2 cursor-pointer">
+              <div className="w-1 h-1 rounded-full bg-[#665345] dotted-menu"></div>
+              Angular
+            </li>
+          </ul>
+        </div>
         <div className="flex items-center space-x-6">
           {categories.map((category) => (
             <Link
