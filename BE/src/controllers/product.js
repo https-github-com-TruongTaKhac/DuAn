@@ -11,6 +11,7 @@ export const create = async (req, res) => {
       image: req.body.image,
       price: req.body.price,
       gallery: req.body.gallery || [],
+      title: req.body.title || "",
       description: req.body.description || "",
       about: req.body.about || "",
       discount: req.body.discount || 0,

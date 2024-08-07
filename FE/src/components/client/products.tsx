@@ -13,7 +13,7 @@ const Products = ({ products }: Props) => {
         const data = await GetAllCategory();
         setCategories(data);
       } catch (error) {
-        console.error("Failed to fetch categories");
+        console.error("Không thể tải danh mục");
       }
     };
     fetchCategories();
@@ -37,7 +37,7 @@ const Products = ({ products }: Props) => {
     <>
       <div className=" backgound-two">
         <div className="relative bg-gradient-to-r from-[#B5DCB0] to-[#FFFFFF] w-full h-[150px] flex items-center font-bold text-[30px] pl-[150px] text-[#505F4E]">
-          ProductList
+          Danh sách sản phẩm
         </div>
 
         <div className="flex items-center justify-center p-10">
@@ -47,7 +47,7 @@ const Products = ({ products }: Props) => {
               alt=""
               className="mr-2 border-0"
             />
-            <p>Eckige Töpfe</p>
+            <p>Chậu vuông</p>
           </div>
 
           <div className="flex items-center ml-24 bg-[#D2E8CD] w-[200px] h-[65px] pl-4 pt-2 ">
@@ -56,7 +56,7 @@ const Products = ({ products }: Props) => {
               alt=""
               className="mr-2 border-0"
             />
-            <p>Runde Töpfe</p>
+            <p>Chậu tròn</p>
           </div>
 
           <div className="flex items-center ml-24 bg-[#D2E8CD] w-[200px] h-[65px] pl-4 pt-2">
@@ -65,7 +65,7 @@ const Products = ({ products }: Props) => {
               alt=""
               className="mr-2 border-0"
             />
-            <p>Untersetzer</p>
+            <p>Đế chậu</p>
           </div>
 
           <div className="flex items-center ml-24 bg-[#D2E8CD] w-[200px] h-[65px] pl-4 pt-2">
@@ -74,24 +74,24 @@ const Products = ({ products }: Props) => {
               alt=""
               className="mr-2 border-0"
             />
-            <p>Pflanzschalen</p>
+            <p>Đĩa cây</p>
           </div>
         </div>
 
         <div className="flex mb-10">
           <div className="ml-[140px]">
-            Sort By:
+            Sắp xếp theo:
             <input
               type="text"
-              placeholder="Newest"
+              placeholder="Mới nhất"
               className="border-2 w-[200px] h-[40px] rounded-lg pl-5 ml-5 bg-transparent"
             />
           </div>
           <div className="ml-20">
-            Show:
+            Hiển thị:
             <input
               type="text"
-              placeholder="Default"
+              placeholder="Mặc định"
               className="border-2 w-[200px] h-[40px] rounded-lg pl-5 ml-5 bg-transparent"
             />
           </div>
@@ -114,7 +114,7 @@ const Products = ({ products }: Props) => {
               <div className=" p-4 rounded-md">
                 <div>
                   <p className="mb-4 text-[30px] font-bold text-[#505F4E]">
-                    Kategorien
+                    Danh mục
                   </p>
                   <div className="mb-2">
                     {categories.map((category) => (
@@ -142,20 +142,20 @@ const Products = ({ products }: Props) => {
                     />
                     <div className="absolute top-0 left-0 p-4">
                       <p className="text-white text-lg font-bold mb-1">
-                        Grow your own
+                        Tự trồng
                       </p>
-                      <p className="text-white">favourite plant</p>
+                      <p className="text-white">cây yêu thích của bạn</p>
                     </div>
                   </div>
 
-                  <p className=" text-[#333333] font-bold">Filter By Price</p>
+                  <p className=" text-[#333333] font-bold">Lọc theo giá</p>
                   <img src="src/assets/image/p.png" alt="" />
-                  <p className="text-[#1E1E1E]">From $0 to $8000</p>
+                  <p className="text-[#1E1E1E]">Từ $0 đến $8000</p>
                   <p className="text-[#333333] font-bold mt-5">
-                    Filter By Size
+                    Lọc theo kích thước
                   </p>
                   <img src="src/assets/image/p.png" alt="" />
-                  <p className="text-[#1E1E1E]">2 mm by 50</p>
+                  <p className="text-[#1E1E1E]">2 mm x 50</p>
                 </div>
               </div>
             </div>
@@ -165,16 +165,16 @@ const Products = ({ products }: Props) => {
         <div className="flex mt-10 pl-[100px] pb-10">
           <div className="w-2/5 p-4 pl-[200px]">
             <p className="text-[40px] font-bold text-[#505F4E]">
-              Etwas abonnieren*
+              Đăng ký nhận tin*
             </p>
             <p className="text-[40px] font-bold text-[#505F4E]">
-              _ Unser Newsletter
+              _ Bản tin của chúng tôi
             </p>
             <div className="pl-[90px] mt-10 text-[#555555]">
               <span className="text-[14px]">
-                Get weekly update about our <br /> product on your email, no
-                spam <br />
-                guaranteed we promise ✌️
+                Nhận cập nhật hàng tuần về sản phẩm của chúng tôi <br /> qua
+                email, không spam <br />
+                đảm bảo chúng tôi hứa ✌️
               </span>
             </div>
           </div>
@@ -186,7 +186,7 @@ const Products = ({ products }: Props) => {
               className="p-2 border border-gray-300 mb-2 w-[508px] h-[62px]"
             />
             <button className="absolute top-0 right-0 mt-8 p-2 bg-[#656C66] text-white w-[180px] h-[56px]">
-              ABONNIEREN
+              ĐĂNG KÝ
             </button>
           </div>
         </div>

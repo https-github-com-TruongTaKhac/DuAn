@@ -15,8 +15,13 @@ import UpdateCategory from "./components/dashboard/UpdateCategory";
 import { ProductType } from "./interfaces/product";
 import ProductList from "./components/client/productsBycategory";
 import SearchResults from "./components/client/searchResult";
-import Register from "./components/client/register";
-import Login from "./components/client/login";
+import SignUp from "./components/client/signup";
+import SignIn from "./components/client/signin";
+import Notfound from "./components/client/notfound";
+import ProtectedRoute from "./components/protectedRouter";
+import { AuthProvider } from "./contexts/AuthContext";
+import Message from "./components/message";
+import Cart from "./components/client/cart";
 
 function App() {
   const [products, setProducts] = useState<ProductType[]>([]);
@@ -43,17 +48,25 @@ function App() {
       element: <Client />,
       children: [
         { path: "/", element: <Home products={products} /> },
-        { path: "register", element: <Register /> },
-        { path: "login", element: <Login /> },
+        { path: "signup", element: <SignUp /> },
+        { path: "signin", element: <SignIn /> },
         { path: "products", element: <Products products={products} /> },
         { path: "products/:id", element: <Detail /> },
-        { path: "products/category/:categoryId", element: <ProductList /> },
+        {
+          path: "products/category/:categoryId",
+          element: <ProductList products={products} />,
+        },
         { path: "search", element: <SearchResults products={products} /> },
+        { path: "cart", element: <Cart /> },
       ],
     },
     {
       path: "dashboard",
-      element: <Dashboard />,
+      element: (
+        <ProtectedRoute>
+          <Dashboard />
+        </ProtectedRoute>
+      ),
       children: [
         { path: "", element: <ListProduct /> },
         { path: "products", element: <ListProduct /> },
@@ -64,9 +77,11 @@ function App() {
         { path: "categories/update/:id", element: <UpdateCategory /> },
       ],
     },
+    { path: "message", Component: Message },
+    { path: "*", element: <Notfound /> },
   ]);
 
-  return routes;
+  return <AuthProvider>{routes}</AuthProvider>;
 }
 
 export default App;

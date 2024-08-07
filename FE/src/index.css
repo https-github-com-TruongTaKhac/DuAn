@@ -8,6 +8,7 @@
 .backgound-two {
   background: linear-gradient(155deg, #ffffff, #ffffff 85%, green 120%);
 }
+
 /* index.css hoặc style.css */
 .ant-message {
   font-size: 16px; /* Thay đổi kích thước font của thông báo */
@@ -15,13 +16,16 @@
 .ant-message-notice {
   padding: 0px; /* Thay đổi padding để thay đổi kích thước thông báo */
 }
-.menu-item:hover ul{
+.menu-item:hover ul {
   display: block;
 }
 .menu-item ul li:hover {
-  background-color:#505F4E;
+  background-color: #505f4e;
   color: white;
 }
-.menu-item ul li:hover .dotted-menu{
+.menu-item ul li:hover .dotted-menu {
   background-color: white;
+}
+.sign-box {
+  border: solid 1px rgb(128, 128, 128, 0.2);
 }

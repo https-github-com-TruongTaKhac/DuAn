@@ -16,7 +16,7 @@ interface CategoryWithProducts {
 }
 const Home = ({ products }: Props) => {
   if (!products) {
-    return <div>Loading...</div>;
+    return <div>Đang tải...</div>;
   }
   const [categoriesWithProductCounts, setCategoriesWithProductCounts] =
     useState<CategoryWithProducts[]>([]);
@@ -38,7 +38,7 @@ const Home = ({ products }: Props) => {
         );
         setCategoriesWithProductCounts(data);
       } catch (error) {
-        console.error("Error fetching categories or products:", error);
+        console.error("Lỗi khi lấy danh mục hoặc sản phẩm:", error);
       }
     };
 
@@ -55,28 +55,26 @@ const Home = ({ products }: Props) => {
           />
           <div className="absolute left-10 top-1/4 text-[#505F4E] z-10 ml-[120px]">
             <div className="mb-4">
-              <p className="text-[55px] font-bold">Wir kümmern uns um Ihre</p>
-              <p className="text-[55px] font-bold">schöner Garten und Haus</p>
+              <p className="text-[55px] font-bold">Chúng tôi chăm sóc cho</p>
+              <p className="text-[55px] font-bold">vườn và nhà của bạn</p>
             </div>
             <div className="mb-8">
               <p className="text-[15px]">
-                Lorem Ipsum is simply dummy text of the printing and
+                Lorem Ipsum chỉ là văn bản giả định của ngành in ấn và
               </p>
               <p className="text-[15px]">
-                typesetting industry. Lorem Ipsum has been the industry's
+                ngành chế bản. Lorem Ipsum đã là văn bản giả định của ngành
               </p>
-              <p className="text-[15px]">
-                standard dummy text ever since the 1500s,
-              </p>
+              <p className="text-[15px]">kể từ thế kỷ 1500,</p>
             </div>
             <button className="px-6 py-3 border-2 border-[#505F4E] text-[#505F4E] rounded w-[200px] transition-transform transform hover:scale-110 cursor-pointer duration-500">
-              Lern mehr
+              Tìm hiểu thêm
             </button>
           </div>
         </div>
 
         <div className="text-[30px] font-baloo font-bold text-[#505F4E] ml-20 mt-20 mb-20">
-          Best sellers
+          Sản phẩm bán chạy
         </div>
 
         <div className="bg-white pb-12">
@@ -98,7 +96,7 @@ const Home = ({ products }: Props) => {
             />
             <div className="absolute inset-0 bg-gradient-to-r from-white to-transparent h-[70px] mt-10">
               <p className="absolute left-4 top-4 text-black font-bold text-[25px] ml-5">
-                Garten Spaten
+                Cái xẻng vườn
               </p>
             </div>
           </div>
@@ -111,7 +109,7 @@ const Home = ({ products }: Props) => {
               />
               <div className="absolute inset-0 bg-gradient-to-r from-white to-transparent h-[60px] mt-6">
                 <p className="absolute left-4 top-4 text-black font-bold text-[25px]">
-                  Sand
+                  Cát
                 </p>
               </div>
             </div>
@@ -123,7 +121,7 @@ const Home = ({ products }: Props) => {
               />
               <div className="absolute inset-0 bg-gradient-to-r from-white to-transparent h-[60px] mt-6">
                 <p className="absolute left-4 top-4 text-black font-bold text-[25px]">
-                  Pflanzer
+                  Cây trồng
                 </p>
               </div>
             </div>
@@ -135,7 +133,7 @@ const Home = ({ products }: Props) => {
               />
               <div className="absolute inset-0 bg-gradient-to-r from-white to-transparent h-[60px] mt-6">
                 <p className="absolute left-4 top-4 text-black font-bold text-[25px]">
-                  Schlammkuchen
+                  Bánh bùn
                 </p>
               </div>
             </div>
@@ -147,7 +145,7 @@ const Home = ({ products }: Props) => {
               />
               <div className="absolute inset-0 bg-gradient-to-r from-white to-transparent h-[60px] mt-6">
                 <p className="absolute left-4 top-4 text-black font-bold text-[25px]">
-                  Klemmen
+                  Kẹp
                 </p>
               </div>
             </div>
@@ -155,7 +153,7 @@ const Home = ({ products }: Props) => {
         </div>
 
         <div className="text-[30px] font-baloo font-bold text-[#505F4E] ml-20 mt-20 mb-20">
-          Kategorien
+          Danh mục
         </div>
         <hr />
 
@@ -179,7 +177,7 @@ const Home = ({ products }: Props) => {
                       {category.name}
                     </p>
                     <p className=" text-white text-[16px]">
-                      {category.productCount} Items
+                      {category.productCount} Sản phẩm
                     </p>
                   </div>
                 </div>
@@ -191,16 +189,16 @@ const Home = ({ products }: Props) => {
         <div className="flex mt-10 pl-[100px] pb-10">
           <div className="w-2/5 p-4 pl-[200px]">
             <p className="text-[40px] font-bold text-[#505F4E]">
-              Etwas abonnieren*
+              Đăng ký nhận tin*
             </p>
             <p className="text-[40px] font-bold text-[#505F4E]">
-              _ Unser Newsletter
+              _ Bản tin của chúng tôi
             </p>
             <div className="pl-[90px] mt-10 text-[#555555]">
               <span className="text-[14px]">
-                Get weekly update about our <br /> product on your email, no
-                spam <br />
-                guaranteed we promise ✌️
+                Nhận cập nhật hàng tuần về sản phẩm của chúng tôi <br /> qua
+                email của bạn, không spam <br />
+                chúng tôi đảm bảo ✌️
               </span>
             </div>
           </div>
@@ -212,7 +210,7 @@ const Home = ({ products }: Props) => {
               className="p-2 border border-gray-300 mb-2 w-[508px] h-[62px] rounded-md focus:outline-none focus:ring-2 focus:ring-[#656C66]"
             />
             <button className="absolute top-0 right-0 mt-8 bg-[#656C66] text-white w-[180px] h-[56px] flex justify-center items-center">
-              ABONNIEREN
+              ĐĂNG KÝ
             </button>
           </div>
         </div>

@@ -3,17 +3,19 @@ import { useParams } from "react-router-dom";
 import { ProductType } from "../../interfaces/product";
 import { GetProductByID } from "../../services/product";
 import { Image } from "antd";
+
 const Detail = () => {
   const [product, setProduct] = useState<ProductType | undefined>(undefined);
   const param = useParams();
   console.log(param);
+
   useEffect(() => {
     const fetchProduct = async () => {
       try {
         const data = await GetProductByID(param.id);
         setProduct(data);
       } catch (error) {
-        console.error("Failed to fetch product:", error);
+        console.error("Không thể lấy thông tin sản phẩm:", error);
       }
     };
 
@@ -21,7 +23,7 @@ const Detail = () => {
   }, [param.id]);
 
   if (!product) {
-    return <div>Loading...</div>;
+    return <div>Đang tải...</div>;
   }
 
   return (
@@ -45,7 +47,7 @@ const Detail = () => {
                 {product.name}
               </span>
               <span className="text-[#68707D] text-[16px]">
-                {product.description}
+                {product.title}
               </span>
               <div className="space-y-2">
                 <div className="flex items-center space-x-4">
@@ -72,7 +74,7 @@ const Detail = () => {
                   <div className="w-[273px] h-[55px] bg-[#4E7C32] flex justify-center items-center gap-4 rounded-lg hover:opacity-80 cursor-pointer">
                     <img src="/src/assets/image/icon-cart 2.png" alt="" />
                     <p className="text-[16px] font-bold text-white">
-                      Add to cart
+                      Thêm vào giỏ hàng
                     </p>
                   </div>
                 </div>
@@ -81,11 +83,11 @@ const Detail = () => {
           </div>
           <div className="">
             <div>
-              <p className="text-[#4E7C32] text-[30px] mt-10">Description</p>
+              <p className="text-[#4E7C32] text-[30px] mt-10">Mô tả</p>
               <span className="text-[#665345]">{product.description}</span>
             </div>
             <div>
-              <p className="text-[#4E7C32] text-[30px] mt-10">About</p>
+              <p className="text-[#4E7C32] text-[30px] mt-10">Về sản phẩm</p>
               <span className="text-[#665345]">{product.about}</span>
             </div>
           </div>
@@ -100,7 +102,7 @@ const Detail = () => {
               <div className="flex flex-col items-center">
                 <img
                   src="/src/assets/image/sao.png"
-                  alt="Rating"
+                  alt="Đánh giá"
                   className="mb-2"
                 />
                 <p className="text-[#4E7C32] text-[33px] flex justify-center items-center">
@@ -111,7 +113,7 @@ const Detail = () => {
             </div>
 
             <div className="bg-[#4E7C32] w-[118px] h-[33px] flex items-center justify-center text-white rounded-xl cursor-pointer hover:opacity-80">
-              Write reviews
+              Viết đánh giá
             </div>
           </div>
 
@@ -120,47 +122,47 @@ const Detail = () => {
               1{" "}
               <img
                 src="/src/assets/image/saol.png"
-                alt="Star"
+                alt="Ngôi sao"
                 className="ml-2"
               />
-              <img src="/src/assets/image/t1.png" alt="Type 1" />
+              <img src="/src/assets/image/t1.png" alt="Loại 1" />
               <p>(388)</p>
             </div>
             <div className="flex items-center space-x-2">
               2{" "}
               <img
                 src="/src/assets/image/saol.png"
-                alt="Star"
+                alt="Ngôi sao"
                 className="ml-2"
               />
-              <img src="/src/assets/image/t2.png" alt="Type 2" />
+              <img src="/src/assets/image/t2.png" alt="Loại 2" />
             </div>
             <div className="flex items-center space-x-2">
               3{" "}
               <img
                 src="/src/assets/image/saol.png"
-                alt="Star"
+                alt="Ngôi sao"
                 className="ml-2"
               />
-              <img src="/src/assets/image/t2.png" alt="Type 2" />
+              <img src="/src/assets/image/t2.png" alt="Loại 2" />
             </div>
             <div className="flex items-center space-x-2">
               4{" "}
               <img
                 src="/src/assets/image/saol.png"
-                alt="Star"
+                alt="Ngôi sao"
                 className="ml-2"
               />
-              <img src="/src/assets/image/t2.png" alt="Type 2" />
+              <img src="/src/assets/image/t2.png" alt="Loại 2" />
             </div>
             <div className="flex items-center space-x-2">
               5{" "}
               <img
                 src="/src/assets/image/saol.png"
-                alt="Star"
+                alt="Ngôi sao"
                 className="ml-2"
               />
-              <img src="/src/assets/image/t2.png" alt="Type 2" />
+              <img src="/src/assets/image/t2.png" alt="Loại 2" />
             </div>
           </div>
 
@@ -168,24 +170,19 @@ const Detail = () => {
             <div className="flex items-end">
               <div className="mt-[30px]">
                 <div className="flex items-center space-x-2">
-                  <p className="text-[#4E7C32] text-[16px]">Aman Gupta</p>
+                  <p className="text-[#4E7C32] text-[16px]">Minh Thư</p>
                   <img
                     src="/src/assets/image/sao.png"
-                    alt="Rating"
+                    alt="Đánh giá"
                     className="pl-10 h-3"
                   />
                 </div>
-                <span className="text-[#665345]  text-[11px]">
-                  I've been using this cleanser for about five or six months now
-                  and my acne
-                  <br />
-                  is almost completely gone. I really struggled for years with
-                  my skin and tried
-                  <br />
-                  everything possible but this is the only thing that managed to
-                  clear up my
-                  <br />
-                  skin. 100% recommend and will continue to use it for sure.
+                <span className="text-[#665345] text-[11px]">
+                  Tôi đã sử dụng sản phẩm này khoảng năm hoặc sáu tháng và mụn
+                  của tôi đã gần như biến mất hoàn toàn. Tôi đã vật lộn trong
+                  nhiều năm với làn da của mình và đã thử mọi cách có thể nhưng
+                  đây là sản phẩm duy nhất giúp làm sạch làn da của tôi. Tôi
+                  hoàn toàn khuyên dùng và sẽ tiếp tục sử dụng nó.
                 </span>
               </div>
             </div>
@@ -193,48 +190,40 @@ const Detail = () => {
               <div>
                 <div className="mt-[30px]">
                   <div className="flex items-center space-x-2">
-                    <p className="text-[#4E7C32] text-[16px]">Aman Gupta</p>
+                    <p className="text-[#4E7C32] text-[16px]">Gia Hân</p>
                     <img
                       src="/src/assets/image/sao.png"
-                      alt="Rating"
+                      alt="Đánh giá"
                       className="pl-10 h-3"
                     />
                   </div>
-                  <span className="text-[#665345]  text-[11px]">
-                    I've been using this cleanser for about five or six months
-                    now and my acne
-                    <br />
-                    is almost completely gone. I really struggled for years with
-                    my skin and tried
-                    <br />
-                    everything possible but this is the only thing that managed
-                    to clear up my
-                    <br />
-                    skin. 100% recommend and will continue to use it for sure.
+                  <span className="text-[#665345] text-[11px]">
+                    Mình dùng thử sản phẩm mấy hôm nay rồi, nay ngoi lên rì viu
+                    cho mọi người chút nè. Đánh giá điểm 9/10 nhoe, ưng ý lắm,
+                    mùi hương kiểu ngọt dịu thơm thoang thoảng nhưng cũng giữ
+                    mùi trên người khá lâu ấy. Rcm cho mọi người xịt lên vùng cổ
+                    tay áo, vùng cổ thì sẽ thơm lắm luôn, mà shop giao hàng cẩn
+                    thận lắm còn có cả thư cảm ơn nữa, nên mua nhé!!!!!!!!
                   </span>
                 </div>
               </div>
               <div>
                 <div className="mt-[30px]">
                   <div className="flex items-center space-x-2">
-                    <p className="text-[#4E7C32] text-[16px]">Aman Gupta</p>
+                    <p className="text-[#4E7C32] text-[16px]">Thùy Linh</p>
                     <img
                       src="/src/assets/image/sao.png"
-                      alt="Rating"
+                      alt="Đánh giá"
                       className="pl-10 h-3"
                     />
                   </div>
-                  <span className="text-[#665345]  text-[11px]">
-                    I've been using this cleanser for about five or six months
-                    now and my acne
-                    <br />
-                    is almost completely gone. I really struggled for years with
-                    my skin and tried
-                    <br />
-                    everything possible but this is the only thing that managed
-                    to clear up my
-                    <br />
-                    skin. 100% recommend and will continue to use it for sure.
+                  <span className="text-[#665345] text-[11px]">
+                    Nhận hàng mà thấy ưng cái bụng liền, sốp bọc hàng kỹ đến nỗi
+                    có ném bay qua cửa sổ vẫn không ảnh hưởng gì đến chai nước
+                    hoa ở trong luôn hahaha, cũng có thư kèm lời cảm ơn nữa,
+                    cuti lắm. Mình mới mở ra xịt chút thì thấy mùi thơm lắm,
+                    chưa biết lưu hương được lâu không nên mình sẽ dùng thêm mấy
+                    ngày nữa rồi rì viu tiếp cho mn xem nhé !
                   </span>
                 </div>
               </div>
@@ -242,24 +231,24 @@ const Detail = () => {
           </div>
 
           <div className="flex justify-center items-center mt-10">
-            <button className="bg-[#4E7C32] w-[60px] h-[20px] rounded-lg text-white text-[12px]">
-              See All
+            <button className="bg-[#4E7C32] w-[70px] h-[22px] rounded-lg text-white text-[12px]">
+              Xem tất cả
             </button>
           </div>
 
           <div className="flex mt-10 pb-10 justify-center items-center">
             <div className="w-2/5 p-4">
               <p className="text-[40px] font-bold text-[#505F4E]">
-                Etwas abonnieren*
+                Đăng ký nhận tin*
               </p>
               <p className="text-[40px] font-bold text-[#505F4E]">
-                _ Unser Newsletter
+                _ Bản tin của chúng tôi
               </p>
               <div className="pl-[90px] mt-10 text-[#555555]">
                 <span className="text-[14px]">
-                  Get weekly updates about our <br /> products via email, no
-                  spam <br />
-                  guaranteed we promise ✌️
+                  Nhận cập nhật hàng tuần về sản phẩm của chúng tôi qua email,
+                  không spam <br />
+                  đảm bảo, chúng tôi hứa ✌️
                 </span>
               </div>
             </div>
@@ -271,7 +260,7 @@ const Detail = () => {
                 className="p-2 border border-gray-300 mb-2 w-[508px] h-[62px]"
               />
               <button className="absolute top-0 right-0 mt-8 p-2 bg-[#656C66] text-white w-[180px] h-[56px]">
-                ABONNIEREN
+                ĐĂNG KÝ
               </button>
             </div>
           </div>

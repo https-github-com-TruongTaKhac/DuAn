@@ -3,12 +3,16 @@ import { useParams } from "react-router-dom";
 import { GetProductsByCategory } from "../../services/product";
 import ProductItem from "../client/productItem";
 import { ProductType } from "../../interfaces/product";
-import { GetCategoryByID } from "../../services/category";
+import { GetAllCategory, GetCategoryByID } from "../../services/category";
 import { CategoryType } from "../../interfaces/category";
 
-const ProductsByCategory = () => {
+type Props = { products: ProductType[] };
+
+const ProductsByCategory = ({ products }: Props) => {
   const { categoryId } = useParams<{ categoryId: string }>(); // Lấy categoryId từ URL
-  const [products, setProducts] = useState<ProductType[]>([]);
+  const [productByCategories, setproductByCategories] = useState<ProductType[]>(
+    []
+  );
   const [category, setCategory] = useState<CategoryType>();
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -21,13 +25,13 @@ const ProductsByCategory = () => {
           const data = await GetProductsByCategory(categoryId);
           const response = await GetCategoryByID(categoryId);
           console.log(category);
-          setProducts(data);
+          setproductByCategories(data);
           setCategory(response.category);
         } else {
-          setProducts([]); // Nếu không có categoryId, đặt sản phẩm thành rỗng
+          setproductByCategories([]); // Nếu không có categoryId, đặt sản phẩm thành rỗng
         }
       } catch (error) {
-        setError("Failed to fetch products");
+        setError("Không thể tải sản phẩm");
       } finally {
         setLoading(false);
       }
@@ -35,6 +39,36 @@ const ProductsByCategory = () => {
 
     fetchProducts();
   }, [categoryId]); // Fetch products khi categoryId thay đổi
+
+  const [categories, setCategories] = useState<CategoryType[]>([]);
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const data = await GetAllCategory();
+        setCategories(data);
+      } catch (error) {
+        console.error("Không thể tải danh mục");
+      }
+    };
+    fetchCategories();
+  }, []);
+
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+
+  const handleCheckboxChange = (categoryId: string) => {
+    setSelectedCategories((prevSelectedCategories) =>
+      prevSelectedCategories.includes(categoryId)
+        ? prevSelectedCategories.filter((id) => id !== categoryId)
+        : [...prevSelectedCategories, categoryId]
+    );
+  };
+
+  const filteredProducts = selectedCategories.length
+    ? products.filter((product) =>
+        selectedCategories.includes(product.categoryId._id as any)
+      )
+    : productByCategories;
+
   return (
     <>
       <div className=" backgound-two">
@@ -49,7 +83,7 @@ const ProductsByCategory = () => {
               alt=""
               className="mr-2 border-0"
             />
-            <p>Eckige Töpfe</p>
+            <p>Chậu vuông</p>
           </div>
 
           <div className="flex items-center ml-24 bg-[#D2E8CD] w-[200px] h-[65px] pl-4 pt-2 ">
@@ -58,7 +92,7 @@ const ProductsByCategory = () => {
               alt=""
               className="mr-2 border-0"
             />
-            <p>Runde Töpfe</p>
+            <p>Chậu tròn</p>
           </div>
 
           <div className="flex items-center ml-24 bg-[#D2E8CD] w-[200px] h-[65px] pl-4 pt-2">
@@ -67,7 +101,7 @@ const ProductsByCategory = () => {
               alt=""
               className="mr-2 border-0"
             />
-            <p>Untersetzer</p>
+            <p>Đĩa đỡ</p>
           </div>
 
           <div className="flex items-center ml-24 bg-[#D2E8CD] w-[200px] h-[65px] pl-4 pt-2">
@@ -76,51 +110,89 @@ const ProductsByCategory = () => {
               alt=""
               className="mr-2 border-0"
             />
-            <p>Pflanzschalen</p>
+            <p>Khay trồng cây</p>
           </div>
         </div>
 
         <div className="flex mb-10">
           <div className="ml-[140px]">
-            Sort By:
+            Sắp xếp theo:
             <input
               type="text"
-              placeholder="Newest"
+              placeholder="Mới nhất"
               className="border-2 w-[200px] h-[40px] rounded-lg pl-5 ml-5 bg-transparent"
             />
           </div>
           <div className="ml-20">
-            Show:
+            Hiển thị:
             <input
               type="text"
-              placeholder="Default"
+              placeholder="Mặc định"
               className="border-2 w-[200px] h-[40px] rounded-lg pl-5 ml-5 bg-transparent"
             />
           </div>
         </div>
 
         <div className="w-[1300px] mx-auto">
-          <div className="grid grid-cols-4 gap-4">
+          <div className="grid grid-cols-5 gap-4">
             <div className="col-span-4">
-              {/* Display products */}
+              {/* Phần sản phẩm */}
               <div className="p-4 rounded-md">
-                {loading ? (
-                  <p>Loading...</p>
-                ) : error ? (
-                  <p>{error}</p>
-                ) : (
-                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-6">
-                    {products.length > 0 ? (
-                      products.map((product) => (
-                        <ProductItem key={product._id} product={product} />
-                      ))
-                    ) : (
-                      <p className="text-xl font-bold text-[#505F4E]">
-                        No Products found !
-                      </p>
-                    )}
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-6">
+                  {filteredProducts.map((product) => (
+                    <ProductItem key={product._id} product={product} />
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="col-span-1">
+              <div className=" p-4 rounded-md">
+                <div>
+                  <p className="mb-4 text-[30px] font-bold text-[#505F4E]">
+                    Danh mục
+                  </p>
+                  <div className="mb-2">
+                    {categories.map((category) => (
+                      <div key={category._id} className="mb-2">
+                        <input
+                          type="checkbox"
+                          id={`checkbox-${category._id}`}
+                          className="mr-2"
+                          onChange={() =>
+                            handleCheckboxChange(category._id as any)
+                          }
+                        />
+                        <label htmlFor={`checkbox-${category._id}`}>
+                          {category.name}
+                        </label>
+                      </div>
+                    ))}
                   </div>
-                )}
+
+                  <div className="relative mb-4">
+                    <img
+                      src="/src/assets/image/bn_r.png"
+                      alt=""
+                      className="w-auto h-auto filter brightness-50 mt-10"
+                    />
+                    <div className="absolute top-0 left-0 p-4">
+                      <p className="text-white text-lg font-bold mb-1">
+                        Tự trồng
+                      </p>
+                      <p className="text-white">cây yêu thích của bạn</p>
+                    </div>
+                  </div>
+
+                  <p className=" text-[#333333] font-bold">Lọc theo giá</p>
+                  <img src="/src/assets/image/p.png" alt="" />
+                  <p className="text-[#1E1E1E]">Từ $0 đến $8000</p>
+                  <p className="text-[#333333] font-bold mt-5">
+                    Lọc theo kích thước
+                  </p>
+                  <img src="src/assets/image/p.png" alt="" />
+                  <p className="text-[#1E1E1E]">2 mm x 50</p>
+                </div>
               </div>
             </div>
           </div>
@@ -129,16 +201,16 @@ const ProductsByCategory = () => {
         <div className="flex mt-10 pl-[100px] pb-10">
           <div className="w-2/5 p-4 pl-[200px]">
             <p className="text-[40px] font-bold text-[#505F4E]">
-              Etwas abonnieren*
+              Đăng ký nhận tin*
             </p>
             <p className="text-[40px] font-bold text-[#505F4E]">
-              _ Unser Newsletter
+              _ Bản tin của chúng tôi
             </p>
             <div className="pl-[90px] mt-10 text-[#555555]">
               <span className="text-[14px]">
-                Get weekly update about our <br /> product on your email, no
-                spam <br />
-                guaranteed we promise ✌️
+                Nhận cập nhật hàng tuần về sản phẩm của chúng tôi <br /> qua
+                email, không spam <br />
+                đảm bảo chúng tôi hứa ✌️
               </span>
             </div>
           </div>
@@ -150,7 +222,7 @@ const ProductsByCategory = () => {
               className="p-2 border border-gray-300 mb-2 w-[508px] h-[62px]"
             />
             <button className="absolute top-0 right-0 mt-8 p-2 bg-[#656C66] text-white w-[180px] h-[56px]">
-              ABONNIEREN
+              ĐĂNG KÝ
             </button>
           </div>
         </div>

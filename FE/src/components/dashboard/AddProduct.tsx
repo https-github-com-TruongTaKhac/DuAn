@@ -5,7 +5,7 @@ import { AddProduct } from "../../services/product";
 import { GetAllCategory } from "../../services/category";
 import { ProductType } from "../../interfaces/product";
 import { CategoryType } from "../../interfaces/category";
-
+const { TextArea } = Input;
 const { Title } = Typography;
 
 const AddProductComponent = () => {
@@ -63,13 +63,25 @@ const AddProductComponent = () => {
           <Input autoComplete="on" />
         </Form.Item>
         <Form.Item
-          name="description"
-          label="Description"
+          name="title"
+          label="title"
           rules={[
-            { required: true, message: "Please input the product description!" },
+            { required: true, message: "Please input the product title!" },
           ]}
         >
           <Input autoComplete="on" />
+        </Form.Item>
+        <Form.Item
+          name="description"
+          label="Description"
+          rules={[
+            {
+              required: true,
+              message: "Please input the product description!",
+            },
+          ]}
+        >
+          <TextArea autoComplete="on" rows={4} />
         </Form.Item>
         <Form.Item
           name="about"
@@ -78,7 +90,7 @@ const AddProductComponent = () => {
             { required: true, message: "Please input the product about!" },
           ]}
         >
-          <Input autoComplete="on" />
+          <TextArea autoComplete="on" rows={4} />
         </Form.Item>
         <Form.Item
           name="price"
